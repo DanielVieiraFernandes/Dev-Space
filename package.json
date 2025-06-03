@@ -1,0 +1,12 @@
+{
+  "name": "dev-space",
+  "version": "1.0.0",
+  "main": "",
+  "license": "MIT",
+  "description": "Projeto Dev-Space, plataforma onde desenvolvedores podem se conectar e compartilhar seus projetos por meio de posts",
+  "author": "Daniel Vieira",
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "typescript": "^5.8.3"
+  }
+}
