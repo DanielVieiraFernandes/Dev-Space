@@ -13,6 +13,7 @@
     "moduleResolution": "node16",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vitest/globals"]
   }
 }
