@@ -1,11 +1,14 @@
-import { Entity } from "@/core/entity";
+import { Entity } from "@/core/entities/entity";
 import { Optional } from "@/core/types/optional";
+import { DeveloperAttachmentList } from "./developer-attachment-list";
+import { DeveloperAttachment } from "./developer-attachment";
 
 export interface DeveloperProps {
   name: string;
   email: string;
   password: string;
   bio: string | null;
+  attachments: DeveloperAttachmentList;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -43,6 +46,14 @@ export class Developer extends Entity<DeveloperProps> {
     this.props.bio = bio;
   }
 
+  get attachments() {
+    return this.props.attachments;
+  }
+
+  set attachments(attachments: DeveloperAttachmentList) {
+    this.props.attachments = attachments;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
@@ -52,7 +63,7 @@ export class Developer extends Entity<DeveloperProps> {
   }
 
   static create(
-    props: Optional<DeveloperProps, "createdAt" | "bio">,
+    props: Optional<DeveloperProps, "createdAt" | "bio" | "attachments">,
     id?: string
   ) {
     return new Developer(
@@ -60,6 +71,9 @@ export class Developer extends Entity<DeveloperProps> {
         ...props,
         createdAt: props.createdAt ?? new Date(),
         bio: props.bio ?? null,
+        attachments:
+          props.attachments ??
+          new DeveloperAttachmentList([] as DeveloperAttachment[]),
       },
       id
     );
