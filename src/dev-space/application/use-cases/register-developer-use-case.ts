@@ -4,31 +4,31 @@ import { Developer } from "@/dev-space/enterprise/entities/developer";
 import { DeveloperAlreadyExistError } from "./errors/developer-already-exist-error";
 import { HashGenerator } from "../cryptography/hash-generator";
 
-interface CreateADeveloperAccountUseCaseRequest {
+interface RegisterDeveloperUseCaseRequest {
   name: string;
   email: string;
   password: string;
   bio: string | null;
 }
 
-type CreateADeveloperAccountUseCaseResponse = Either<
+type RegisterDeveloperUseCaseResponse = Either<
   DeveloperAlreadyExistError,
   {}
 >;
 
-export class CreateADeveloperAccountUseCase {
+export class RegisterDeveloperUseCase {
   constructor(
     private developersRepository: DevelopersRepository,
     private hashGenerator: HashGenerator
   ) {}
 
   async execute(
-    request: CreateADeveloperAccountUseCaseRequest
-  ): Promise<CreateADeveloperAccountUseCaseResponse> {
+    request: RegisterDeveloperUseCaseRequest
+  ): Promise<RegisterDeveloperUseCaseResponse> {
     const isDeveloperExist = await this.developersRepository.findByEmail(
       request.email
     );
-
+    
     if (isDeveloperExist) {
       return left(new DeveloperAlreadyExistError());
     }

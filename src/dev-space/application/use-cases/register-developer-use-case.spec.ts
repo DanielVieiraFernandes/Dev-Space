@@ -1,16 +1,18 @@
 import { InMemoryDevelopersRepository } from "@/../test/repositories/in-memory-developers-repository";
-import { CreateADeveloperAccountUseCase } from "./create-a-developer-account-use-case";
+import { RegisterDeveloperUseCase } from "./register-developer-use-case";
 import { FakeHasher } from "@/../test/cryptography/fake-hasher";
+import { makeDeveloper } from "../../../../test/factories/make-developer";
+import { DeveloperAlreadyExistError } from "./errors/developer-already-exist-error";
 
 let inMemoryDevelopersRepository: InMemoryDevelopersRepository;
 let fakeHasher: FakeHasher;
-let sut: CreateADeveloperAccountUseCase; // sut is System Under Test
+let sut: RegisterDeveloperUseCase; // sut is System Under Test
 
 describe("Create a developer account use case", () => {
   beforeEach(() => {
     inMemoryDevelopersRepository = new InMemoryDevelopersRepository();
     fakeHasher = new FakeHasher();
-    sut = new CreateADeveloperAccountUseCase(
+    sut = new RegisterDeveloperUseCase(
       inMemoryDevelopersRepository,
       fakeHasher
     );
@@ -32,5 +34,26 @@ describe("Create a developer account use case", () => {
         bio: null,
       })
     );
+  });
+
+  it("Should not be able to create a new developer account when this account already exists", async () => {
+    await inMemoryDevelopersRepository.create(
+      makeDeveloper({
+        name: "Daniel",
+        email: "daniel@email.com",
+        password: "123456",
+        bio: null,
+      })
+    );
+
+    const result = await sut.execute({
+      name: "Daniel",
+      email: "daniel@email.com",
+      password: "123456",
+      bio: null,
+    });
+
+    expect(result.isLeft()).toBeTruthy();
+    expect(result.value).toBeInstanceOf(DeveloperAlreadyExistError);
   });
 });
