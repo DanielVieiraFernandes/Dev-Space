@@ -1,8 +1,8 @@
-import { DeveloperAttachmentsRepository } from "@/dev-space/application/repositories/developer-attachments-repository";
-import { DevelopersRepository } from "@/dev-space/application/repositories/developers-repository";
-import { Attachment } from "@/dev-space/enterprise/entities/attachment";
-import { Developer } from "@/dev-space/enterprise/entities/developer";
-import { DeveloperAttachment } from "@/dev-space/enterprise/entities/developer-attachment";
+import { DeveloperAttachmentsRepository } from "@/domain/dev-space/application/repositories/developer-attachments-repository";
+import { DevelopersRepository } from "@/domain/dev-space/application/repositories/developers-repository";
+import { Attachment } from "@/domain/dev-space/enterprise/entities/attachment";
+import { Developer } from "@/domain/dev-space/enterprise/entities/developer";
+import { DeveloperAttachment } from "@/domain/dev-space/enterprise/entities/developer-attachment";
 
 export class InMemoryDeveloperAttachmentsRepository
   implements DeveloperAttachmentsRepository

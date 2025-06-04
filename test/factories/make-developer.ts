@@ -1,8 +1,8 @@
 import {
   Developer,
   DeveloperProps,
-} from "@/dev-space/enterprise/entities/developer";
-import { DeveloperAttachmentList } from "@/dev-space/enterprise/entities/developer-attachment-list";
+} from "@/domain/dev-space/enterprise/entities/developer";
+import { DeveloperAttachmentList } from "@/domain/dev-space/enterprise/entities/developer-attachment-list";
 import { fakerPT_BR } from "@faker-js/faker";
 
 export const makeDeveloper = (

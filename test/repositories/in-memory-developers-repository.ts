@@ -1,5 +1,5 @@
-import { DevelopersRepository } from "@/dev-space/application/repositories/developers-repository";
-import { Developer } from "@/dev-space/enterprise/entities/developer";
+import { DevelopersRepository } from "@/domain/dev-space/application/repositories/developers-repository";
+import { Developer } from "@/domain/dev-space/enterprise/entities/developer";
 
 export class InMemoryDevelopersRepository implements DevelopersRepository {
   items: Developer[] = [];

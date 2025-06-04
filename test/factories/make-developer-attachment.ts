@@ -1,7 +1,7 @@
 import {
   DeveloperAttachment,
   DeveloperAttachmentProps,
-} from "@/dev-space/enterprise/entities/developer-attachment";
+} from "@/domain/dev-space/enterprise/entities/developer-attachment";
 import { fakerPT_BR } from "@faker-js/faker";
 
 export const makeDeveloperAttachment = (
