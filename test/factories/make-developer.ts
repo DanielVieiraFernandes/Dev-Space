@@ -2,6 +2,7 @@ import {
   Developer,
   DeveloperProps,
 } from "@/dev-space/enterprise/entities/developer";
+import { DeveloperAttachmentList } from "@/dev-space/enterprise/entities/developer-attachment-list";
 import { fakerPT_BR } from "@faker-js/faker";
 
 export const makeDeveloper = (
@@ -14,6 +15,7 @@ export const makeDeveloper = (
       email: fakerPT_BR.internet.email(),
       bio: fakerPT_BR.person.bio(),
       password: fakerPT_BR.internet.password() + "-hashed",
+      attachments: new DeveloperAttachmentList(),
       ...override,
     },
     id

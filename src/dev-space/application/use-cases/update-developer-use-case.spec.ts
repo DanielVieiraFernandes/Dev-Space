@@ -4,16 +4,25 @@ import { FakeHasher } from "@/../test/cryptography/fake-hasher";
 import { makeDeveloper } from "../../../../test/factories/make-developer";
 import { WrongCredentialsError } from "./errors/wrong-credentials-error";
 import { DeveloperNotExistError } from "./errors/developer-not-exist-error";
+import { InMemoryDeveloperAttachmentsRepository } from "../../../../test/repositories/in-memory-developer-attachments-repository";
+import { makeDeveloperAttachment } from "../../../../test/factories/make-developer-attachment";
 
 let inMemoryDevelopersRepository: InMemoryDevelopersRepository;
+let inMemoryDeveloperAttachmentsRepository: InMemoryDeveloperAttachmentsRepository;
 let fakeHasher: FakeHasher;
 let sut: UpdateDeveloperUseCase; // sut is System Under Test
 
 describe("Update developer use case", () => {
   beforeEach(() => {
     inMemoryDevelopersRepository = new InMemoryDevelopersRepository();
+    inMemoryDeveloperAttachmentsRepository =
+      new InMemoryDeveloperAttachmentsRepository();
     fakeHasher = new FakeHasher();
-    sut = new UpdateDeveloperUseCase(inMemoryDevelopersRepository, fakeHasher);
+    sut = new UpdateDeveloperUseCase(
+      inMemoryDevelopersRepository,
+      inMemoryDeveloperAttachmentsRepository,
+      fakeHasher
+    );
   });
 
   it("Should be able to update a developer account", async () => {
@@ -24,10 +33,16 @@ describe("Update developer use case", () => {
 
     inMemoryDevelopersRepository.items.push(developer);
 
+    inMemoryDeveloperAttachmentsRepository.items.push(
+      makeDeveloperAttachment({}, "1"),
+      makeDeveloperAttachment({}, "2")
+    );
+
     const result = await sut.execute({
       userId: developer.id,
       password: "123456",
       bio: "Bio alterada",
+      attachmentsIds: ["1", "3"],
     });
 
     expect(result.isRight()).toBeTruthy();
@@ -37,6 +52,19 @@ describe("Update developer use case", () => {
         bio: "Bio alterada",
       })
     );
+    expect(
+      inMemoryDevelopersRepository.items[0].attachments.currentItems
+    ).toHaveLength(2);
+    expect(
+      inMemoryDevelopersRepository.items[0].attachments.currentItems
+    ).toEqual([
+      expect.objectContaining({
+        attachmentId: "1",
+      }),
+      expect.objectContaining({
+        attachmentId: "3",
+      }),
+    ]);
   });
 
   it("Should not be able to update a developer account when the account not exist", async () => {
@@ -44,6 +72,7 @@ describe("Update developer use case", () => {
       userId: "user-not-exist-id",
       password: "123456",
       bio: "Bio alterada",
+      attachmentsIds: ["1", "2"],
     });
 
     expect(result.isLeft()).toBeTruthy();
@@ -62,6 +91,7 @@ describe("Update developer use case", () => {
       userId: developer.id,
       password: "123457",
       bio: "Bio alterada",
+      attachmentsIds: ["1", "2"],
     });
 
     expect(result.isLeft()).toBeTruthy();

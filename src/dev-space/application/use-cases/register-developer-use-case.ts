@@ -3,18 +3,18 @@ import { DevelopersRepository } from "../repositories/developers-repository";
 import { Developer } from "@/dev-space/enterprise/entities/developer";
 import { DeveloperAlreadyExistError } from "./errors/developer-already-exist-error";
 import { HashGenerator } from "../cryptography/hash-generator";
+import { DeveloperAttachmentList } from "@/dev-space/enterprise/entities/developer-attachment-list";
+import { DeveloperAttachment } from "@/dev-space/enterprise/entities/developer-attachment";
 
 interface RegisterDeveloperUseCaseRequest {
   name: string;
   email: string;
   password: string;
   bio: string | null;
+  attachmentsIds: string[];
 }
 
-type RegisterDeveloperUseCaseResponse = Either<
-  DeveloperAlreadyExistError,
-  {}
->;
+type RegisterDeveloperUseCaseResponse = Either<DeveloperAlreadyExistError, {}>;
 
 export class RegisterDeveloperUseCase {
   constructor(
@@ -28,7 +28,7 @@ export class RegisterDeveloperUseCase {
     const isDeveloperExist = await this.developersRepository.findByEmail(
       request.email
     );
-    
+
     if (isDeveloperExist) {
       return left(new DeveloperAlreadyExistError());
     }
@@ -37,6 +37,14 @@ export class RegisterDeveloperUseCase {
       ...request,
       password: await this.hashGenerator.generate(request.password),
     });
+
+    const developerAttachments = request.attachmentsIds.map((attachment) => {
+      return DeveloperAttachment.create({
+        attachmentId: attachment,
+        developerId: developer.id,
+      });
+    });
+    developer.attachments.update(developerAttachments);
 
     await this.developersRepository.create(developer);
 

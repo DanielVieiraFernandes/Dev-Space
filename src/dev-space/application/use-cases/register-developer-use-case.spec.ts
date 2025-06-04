@@ -24,6 +24,7 @@ describe("Create a developer account use case", () => {
       email: "daniel@email.com",
       password: "123456",
       bio: null,
+      attachmentsIds: ["1"],
     });
 
     expect(result.isRight()).toBeTruthy();
@@ -32,6 +33,16 @@ describe("Create a developer account use case", () => {
         email: "daniel@email.com",
         password: "123456-hashed",
         bio: null,
+      })
+    );
+    expect(
+      inMemoryDevelopersRepository.items[0].attachments.currentItems
+    ).toHaveLength(1);
+    expect(
+      inMemoryDevelopersRepository.items[0].attachments.currentItems[0]
+    ).toEqual(
+      expect.objectContaining({
+        attachmentId: "1",
       })
     );
   });
@@ -51,6 +62,7 @@ describe("Create a developer account use case", () => {
       email: "daniel@email.com",
       password: "123456",
       bio: null,
+      attachmentsIds: ["1"],
     });
 
     expect(result.isLeft()).toBeTruthy();
