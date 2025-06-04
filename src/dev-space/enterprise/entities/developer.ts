@@ -1,7 +1,7 @@
 import { Entity } from "@/core/entity";
 import { Optional } from "@/core/types/optional";
 
-interface DeveloperProps {
+export interface DeveloperProps {
   name: string;
   email: string;
   password: string;
@@ -15,16 +15,32 @@ export class Developer extends Entity<DeveloperProps> {
     return this.props.name;
   }
 
+  set name(name: string) {
+    this.props.name = name;
+  }
+
   get email() {
     return this.props.email;
+  }
+
+  set email(email: string) {
+    this.props.email = email;
   }
 
   get password() {
     return this.props.password;
   }
 
-  get bio() {
+  set password(password: string) {
+    this.props.password = password;
+  }
+
+  get bio(): string | null {
     return this.props.bio;
+  }
+
+  set bio(bio: string | null) {
+    this.props.bio = bio;
   }
 
   get createdAt() {
@@ -35,11 +51,15 @@ export class Developer extends Entity<DeveloperProps> {
     return this.props.updatedAt;
   }
 
-  static create(props: Optional<DeveloperProps, "createdAt">, id?: string) {
+  static create(
+    props: Optional<DeveloperProps, "createdAt" | "bio">,
+    id?: string
+  ) {
     return new Developer(
       {
         ...props,
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
+        bio: props.bio ?? null,
       },
       id
     );
