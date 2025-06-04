@@ -13,7 +13,7 @@ export const makeDeveloper = (
       name: fakerPT_BR.person.fullName(),
       email: fakerPT_BR.internet.email(),
       bio: fakerPT_BR.person.bio(),
-      password: fakerPT_BR.internet.password(),
+      password: fakerPT_BR.internet.password() + "-hashed",
       ...override,
     },
     id
