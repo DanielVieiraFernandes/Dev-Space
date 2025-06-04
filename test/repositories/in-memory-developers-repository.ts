@@ -16,6 +16,14 @@ export class InMemoryDevelopersRepository implements DevelopersRepository {
     }
   }
 
+  async remove(id: string): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === id);
+
+    if (itemIndex > -1) {
+      this.items.splice(itemIndex, 1);
+    }
+  }
+
   async findById(id: string): Promise<Developer | null> {
     const developer = this.items.find((item) => item.id === id);
 
