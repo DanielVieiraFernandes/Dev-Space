@@ -3,7 +3,7 @@ import { Optional } from "@/core/types/optional";
 import { PostAttachmentList } from "./post-attachment-list";
 import { PostAttachment } from "./post-attachment";
 
-interface PostProps {
+export interface PostProps {
   authorId: string;
   content: string;
   attachments: PostAttachmentList;
@@ -18,6 +18,10 @@ export class Post extends Entity<PostProps> {
 
   get content() {
     return this.props.content;
+  }
+
+  set content(content: string) {
+    this.props.content = content;
   }
 
   get attachments() {
