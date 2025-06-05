@@ -1,5 +1,5 @@
 import { InMemoryDevelopersRepository } from "@/../test/repositories/in-memory-developers-repository";
-import { RegisterDeveloperUseCase } from "./register-developer-use-case";
+import { RegisterDeveloperUseCase } from "./register-developer";
 import { FakeHasher } from "@/../test/cryptography/fake-hasher";
 import { makeDeveloper } from "../../../../../test/factories/make-developer";
 import { DeveloperAlreadyExistError } from "./errors/developer-already-exist-error";

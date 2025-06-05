@@ -1,5 +1,5 @@
 import { InMemoryDevelopersRepository } from "@/../test/repositories/in-memory-developers-repository";
-import { CreatePostUseCase } from "./create-post-use-case";
+import { CreatePostUseCase } from "./create-post";
 import { makeDeveloper } from "../../../../../test/factories/make-developer";
 import { DeveloperAlreadyExistError } from "./errors/developer-already-exist-error";
 import { InMemoryPostsRepository } from "../../../../../test/repositories/in-memory-posts-repository";

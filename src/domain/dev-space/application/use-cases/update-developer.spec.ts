@@ -1,5 +1,5 @@
 import { InMemoryDevelopersRepository } from "@/../test/repositories/in-memory-developers-repository";
-import { UpdateDeveloperUseCase } from "./update-developer-use-case";
+import { UpdateDeveloperUseCase } from "./update-developer";
 import { FakeHasher } from "@/../test/cryptography/fake-hasher";
 import { makeDeveloper } from "../../../../../test/factories/make-developer";
 import { WrongCredentialsError } from "./errors/wrong-credentials-error";

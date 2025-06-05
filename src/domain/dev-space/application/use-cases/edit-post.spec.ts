@@ -1,5 +1,5 @@
 import { InMemoryDevelopersRepository } from "@/../test/repositories/in-memory-developers-repository";
-import { EditPostUseCase } from "./edit-post-use-case";
+import { EditPostUseCase } from "./edit-post";
 import { makeDeveloper } from "@/../test/factories/make-developer";
 import { WrongCredentialsError } from "./errors/wrong-credentials-error";
 import { InMemoryPostsRepository } from "@/../test/repositories/in-memory-posts-repository";
