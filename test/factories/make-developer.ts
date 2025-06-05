@@ -6,7 +6,7 @@ import { DeveloperAttachmentList } from "@/domain/dev-space/enterprise/entities/
 import { fakerPT_BR } from "@faker-js/faker";
 
 export const makeDeveloper = (
-  override: Partial<DeveloperProps>,
+  override: Partial<DeveloperProps> = {},
   id?: string
 ) => {
   return Developer.create(

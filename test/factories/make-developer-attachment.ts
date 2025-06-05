@@ -5,7 +5,7 @@ import {
 import { fakerPT_BR } from "@faker-js/faker";
 
 export const makeDeveloperAttachment = (
-  override: Partial<DeveloperAttachmentProps>,
+  override: Partial<DeveloperAttachmentProps> = {},
   id?: string
 ) => {
   return DeveloperAttachment.create(
