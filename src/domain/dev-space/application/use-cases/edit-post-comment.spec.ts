@@ -27,7 +27,6 @@ describe('Edit post comment use case', () => {
     const result = await sut.execute({
       commentId: 'comment-1',
       authorId: 'author-1',
-      postId: 'post-1',
       content: 'This is a new content for the comment',
     });
 
@@ -51,7 +50,6 @@ describe('Edit post comment use case', () => {
 
     const result = await sut.execute({
       authorId: 'author-2',
-      postId: 'post-1',
       content: 'This is a new content for the comment',
       commentId: 'comment-1',
     });

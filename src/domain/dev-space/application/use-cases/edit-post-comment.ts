@@ -6,7 +6,6 @@ import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 interface EditPostCommentRequest {
   authorId: string;
-  postId: string;
   commentId: string;
   content: string;
 }
@@ -24,17 +23,12 @@ export class EditPostCommentUseCase {
   async execute({
     authorId,
     commentId,
-    postId,
     content,
   }: EditPostCommentRequest): Promise<EditPostCommentResponse> {
     const comment = await this.postCommentsRepository.findById(commentId);
 
     if (!comment) {
       return left(new CommentNotExistError());
-    }
-
-    if (comment.postId !== postId) {
-      return left(new WrongCredentialsError());
     }
 
     if (comment.authorId !== authorId) {
