@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { randomUUID } from 'node:crypto';
 
 export class Entity<Props> {
   private _id: string;
@@ -11,5 +11,17 @@ export class Entity<Props> {
 
   get id() {
     return this._id;
+  }
+
+  public equals(entity: Entity<unknown>) {
+    if (entity === this) {
+      return true;
+    }
+
+    if (entity.id === this.id) {
+      return true;
+    }
+
+    return false;
   }
 }
