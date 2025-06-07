@@ -1,3 +1,4 @@
+import { PaginationParams } from '@/core/params/pagination-params';
 import { PostCommentsRepository } from '@/domain/dev-space/application/repositories/post-comments-repository';
 import { Comment } from '@/domain/dev-space/enterprise/entities/comment';
 
@@ -26,5 +27,21 @@ export class InMemoryPostCommentsRepository implements PostCommentsRepository {
   async findById(id: string): Promise<Comment | null> {
     const comment = this.items.find(item => item.id === id);
     return comment ?? null;
+  }
+
+  async findMany({ page, size, search }: PaginationParams): Promise<Comment[]> {
+    let comments;
+
+    if (search) {
+      comments = this.items
+        .filter(item =>
+          item.content.toLowerCase().includes(search.toLocaleLowerCase())
+        )
+        .slice((page - 1) * size, page * size);
+    } else {
+      comments = this.items.slice((page - 1) * size, page * size);
+    }
+
+    return comments;
   }
 }
