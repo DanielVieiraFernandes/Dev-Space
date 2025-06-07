@@ -1,11 +1,11 @@
-import { Either, left, right } from "@/core/errors/either";
-import { DeveloperNotExistError } from "./errors/developer-not-exist-error";
-import { DevelopersRepository } from "../repositories/developers-repository";
-import { HashComparer } from "../cryptography/hash-comparer";
-import { WrongCredentialsError } from "./errors/wrong-credentials-error";
-import { DeveloperAttachmentsRepository } from "../repositories/developer-attachments-repository";
-import { DeveloperAttachmentList } from "@/domain/dev-space/enterprise/entities/developer-attachment-list";
-import { DeveloperAttachment } from "@/domain/dev-space/enterprise/entities/developer-attachment";
+import { Either, left, right } from '@/core/errors/either';
+import { DeveloperAttachment } from '@/domain/dev-space/enterprise/entities/developer-attachment';
+import { DeveloperAttachmentList } from '@/domain/dev-space/enterprise/entities/developer-attachment-list';
+import { HashComparer } from '../cryptography/hash-comparer';
+import { DeveloperAttachmentsRepository } from '../repositories/developer-attachments-repository';
+import { DevelopersRepository } from '../repositories/developers-repository';
+import { DeveloperNotExistError } from './errors/developer-not-exist-error';
+import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 interface UpdateDeveloperUseCaseRequest {
   userId: string;
@@ -59,7 +59,7 @@ export class UpdateDeveloperUseCase {
       const developerAttachmentList = new DeveloperAttachmentList(
         currentAttachments
       );
-      const developerAttachments = attachmentsIds.map((attachmentId) => {
+      const developerAttachments = attachmentsIds.map(attachmentId => {
         return DeveloperAttachment.create({
           attachmentId,
           developerId: developer.id,

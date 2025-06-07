@@ -1,8 +1,8 @@
-import { Either, left, right } from "@/core/errors/either";
-import { DeveloperNotExistError } from "./errors/developer-not-exist-error";
-import { DevelopersRepository } from "../repositories/developers-repository";
-import { WrongCredentialsError } from "./errors/wrong-credentials-error";
-import { HashComparer } from "../cryptography/hash-comparer";
+import { Either, left, right } from '@/core/errors/either';
+import { HashComparer } from '../cryptography/hash-comparer';
+import { DevelopersRepository } from '../repositories/developers-repository';
+import { DeveloperNotExistError } from './errors/developer-not-exist-error';
+import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 interface RemoveDeveloperUseCaseRequest {
   developerId: string;

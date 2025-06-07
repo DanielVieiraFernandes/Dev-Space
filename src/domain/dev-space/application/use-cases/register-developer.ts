@@ -1,10 +1,9 @@
-import { Either, left, right } from "@/core/errors/either";
-import { DevelopersRepository } from "../repositories/developers-repository";
-import { Developer } from "@/domain/dev-space/enterprise/entities/developer";
-import { DeveloperAlreadyExistError } from "./errors/developer-already-exist-error";
-import { HashGenerator } from "../cryptography/hash-generator";
-import { DeveloperAttachmentList } from "@/domain/dev-space/enterprise/entities/developer-attachment-list";
-import { DeveloperAttachment } from "@/domain/dev-space/enterprise/entities/developer-attachment";
+import { Either, left, right } from '@/core/errors/either';
+import { Developer } from '@/domain/dev-space/enterprise/entities/developer';
+import { DeveloperAttachment } from '@/domain/dev-space/enterprise/entities/developer-attachment';
+import { HashGenerator } from '../cryptography/hash-generator';
+import { DevelopersRepository } from '../repositories/developers-repository';
+import { DeveloperAlreadyExistError } from './errors/developer-already-exist-error';
 
 interface RegisterDeveloperUseCaseRequest {
   name: string;
@@ -38,7 +37,7 @@ export class RegisterDeveloperUseCase {
       password: await this.hashGenerator.generate(request.password),
     });
 
-    const developerAttachments = request.attachmentsIds.map((attachment) => {
+    const developerAttachments = request.attachmentsIds.map(attachment => {
       return DeveloperAttachment.create({
         attachmentId: attachment,
         developerId: developer.id,
