@@ -1,12 +1,12 @@
-import { Either, left, right } from "@/core/errors/either";
-import { PostsRepository } from "../repositories/posts-repository";
-import { PostAttachmentsRepository } from "../repositories/post-attachments-repository";
-import { DevelopersRepository } from "../repositories/developers-repository";
-import { DeveloperNotExistError } from "./errors/developer-not-exist-error";
-import { WrongCredentialsError } from "./errors/wrong-credentials-error";
-import { UnAuthorizedError } from "./errors/unauthorized-error";
-import { PostAttachmentList } from "../../enterprise/entities/post-attachment-list";
-import { PostAttachment } from "../../enterprise/entities/post-attachment";
+import { Either, left, right } from '@/core/errors/either';
+import { PostAttachment } from '../../enterprise/entities/post-attachment';
+import { PostAttachmentList } from '../../enterprise/entities/post-attachment-list';
+import { DevelopersRepository } from '../repositories/developers-repository';
+import { PostAttachmentsRepository } from '../repositories/post-attachments-repository';
+import { PostsRepository } from '../repositories/posts-repository';
+import { DeveloperNotExistError } from './errors/developer-not-exist-error';
+import { UnAuthorizedError } from './errors/unauthorized-error';
+import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 interface EditPostUseCaseRequest {
   authorId: string;
@@ -53,7 +53,7 @@ export class EditPostUseCase {
       const currentAttachments =
         await this.postAttachmentsRepository.findManyByPostId(postId);
       const postAttachmentList = new PostAttachmentList(currentAttachments);
-      const attachments = attachmentsIds.map((attachmentId) => {
+      const attachments = attachmentsIds.map(attachmentId => {
         return PostAttachment.create({
           attachmentId,
           postId,

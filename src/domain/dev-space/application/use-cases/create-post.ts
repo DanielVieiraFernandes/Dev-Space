@@ -1,9 +1,9 @@
-import { Either, left, right } from "@/core/errors/either";
-import { DeveloperNotExistError } from "./errors/developer-not-exist-error";
-import { Post } from "@/domain/dev-space/enterprise/entities/post";
-import { PostsRepository } from "../repositories/posts-repository";
-import { DevelopersRepository } from "../repositories/developers-repository";
-import { PostAttachment } from "@/domain/dev-space/enterprise/entities/post-attachment";
+import { Either, left, right } from '@/core/errors/either';
+import { Post } from '@/domain/dev-space/enterprise/entities/post';
+import { PostAttachment } from '@/domain/dev-space/enterprise/entities/post-attachment';
+import { DevelopersRepository } from '../repositories/developers-repository';
+import { PostsRepository } from '../repositories/posts-repository';
+import { DeveloperNotExistError } from './errors/developer-not-exist-error';
 
 interface CreatePostUseCaseRequest {
   authorId: string;
@@ -40,7 +40,7 @@ export class CreatePostUseCase {
       content,
     });
 
-    const postAttachments = attachmentsIds.map((attachmentId) => {
+    const postAttachments = attachmentsIds.map(attachmentId => {
       return PostAttachment.create({
         attachmentId,
         postId: post.id,
